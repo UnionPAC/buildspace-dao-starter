@@ -1,5 +1,5 @@
-import { useAddress, useMetamask, useEditionDrop } from "@thirdweb-dev/react";
-import { useState, useEffect } from "react";
+import { useAddress, useMetamask, useEditionDrop, useToken } from "@thirdweb-dev/react";
+import { useState, useEffect, useMemo } from "react";
 
 const App = () => {
   const address = useAddress();
@@ -10,6 +10,8 @@ const App = () => {
   const editionDrop = useEditionDrop(
     "0x7230089Cc3D6141a4F7C5231795bdD9613e636E6"
   );
+  const token = useToken("0xC8E82aB8b6b6c7d68b0C1317014640eF42CB8c3f");
+
   const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
 
@@ -72,8 +74,9 @@ const App = () => {
   if (hasClaimedNFT) {
     return (
       <div className="member-page">
-        <h1>🍪DAO Member Page</h1>
-        <p>Congratulations on being a member</p>
+        <h1>startupDAO Dashboard</h1>
+        <h2>✨ Member Page Only ✨</h2>
+        <p>Congrats on being a member in the fastest growing entrepreneurial DAO 🔥</p>
       </div>
     );
   }

@@ -18,7 +18,29 @@ const token = sdk.getToken("0xC8E82aB8b6b6c7d68b0C1317014640eF42CB8c3f");
       process.exit(0);
     }
 
-    
+    const airdropTargets = walletAddresses.map((address) => {
+      // pick random num between 1,000 and 10,000
+      const randomAmount = Math.floor(
+        Math.random() * (10000 - 1000 + 1) + 1000
+      );
+      console.log("✈️ Going to airdrop", randomAmount, "tokens to", address);
 
-  } catch (error) {}
+      // set up the target
+      const airdropTarget = {
+        toAddress: address,
+        amount: randomAmount,
+      };
+
+      return airdropTarget;
+    });
+
+    console.log("🌈 Starting airdrop...");
+    // call transferBatch on all our airdrop targets
+    await token.transferBatch(airdropTargets);
+    console.log(
+      "✅ Successfully airdropped tokens to all the holders of the NFT!"
+    );
+  } catch (error) {
+    console.error("Couldn't airdrop tokens", error);
+  }
 })();
