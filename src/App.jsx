@@ -1,4 +1,9 @@
-import { useAddress, useMetamask, useEditionDrop, useToken } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useMetamask,
+  useEditionDrop,
+  useToken,
+} from "@thirdweb-dev/react";
 import { useState, useEffect, useMemo } from "react";
 
 const App = () => {
@@ -14,6 +19,68 @@ const App = () => {
 
   const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
+  const [memberTokenAmounts, setMemberTokenAmounts] = useState([]);
+  const [memberAddresses, setMemberAddresses] = useState([]);
+
+  // shorten wallet address
+  const shortenAddress = (str) => {
+    return str.substring(0, 6) + "..." + str.substring(str.length - 4);
+  };
+
+  // grab all the addresses of our members holding startupDAO NFT v1
+  useEffect(() => {
+    if (!hasClaimedNFT) {
+      return;
+    }
+
+    // grab the users who hold our NFT w/ tokenId 0
+    const getAllAddresses = async () => {
+      try {
+        const memberAddresses =
+          await editionDrop.history.getAllClaimerAddresses(0);
+        setMemberAddresses(memberAddresses);
+        console.log("🚀 Members addresses", memberAddresses);
+      } catch (error) {
+        console.error("failed to get member list", error);
+      }
+    };
+    getAllAddresses();
+  }, [editionDrop.history, hasClaimedNFT]);
+
+  // grab the # of token each member holds
+  useEffect(() => {
+    if (!hasClaimedNFT) {
+      return;
+    }
+
+    const getAllBalances = async () => {
+      try {
+        const amounts = await token.history.getAllHolderBalances();
+        setMemberTokenAmounts(amounts);
+        console.log("👜 Amounts", amounts);
+      } catch (error) {
+        console.error("Couldn't get member balances", error);
+      }
+    };
+    getAllBalances();
+  }, [hasClaimedNFT, token.history]);
+
+  // Combine member addresses and member token amounts into a single array
+  const memberList = useMemo(() => {
+    return memberAddresses.map((address) => {
+      // check if we are finding the address in the memberTokenAmounts array
+      // if so, return that token amount to user
+      // if not, return zero
+      const member = memberTokenAmounts?.find(
+        ({ holder }) => holder === address
+      );
+
+      return {
+        address,
+        tokenAmount: member?.balance.displayValue || "0",
+      };
+    });
+  }, [memberAddresses, memberTokenAmounts]);
 
   useEffect(() => {
     // if they don't have a connected account --> return
@@ -76,7 +143,33 @@ const App = () => {
       <div className="member-page">
         <h1>startupDAO Dashboard</h1>
         <h2>✨ Member Page Only ✨</h2>
-        <p>Congrats on being a member in the fastest growing entrepreneurial DAO 🔥</p>
+        <p>
+          Congrats on being a member in the fastest growing entrepreneurial DAO
+          🔥
+        </p>
+        <div>
+          <div>
+            <h2>Member List</h2>
+            <table className="card">
+              <thead>
+                <tr>
+                  <th>Address</th>
+                  <th>Token Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {memberList.map((member) => {
+                  return (
+                    <tr key={member.address}>
+                      <td>{shortenAddress(member.address)}</td>
+                      <td>{member.tokenAmount}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     );
   }
