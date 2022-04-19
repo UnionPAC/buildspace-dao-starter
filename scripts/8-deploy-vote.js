@@ -16,7 +16,7 @@ import sdk from "./1-initialize-sdk.js";
       voting_quorum_fraction: 0,
 
       // minimum # of tokens a user needs to be allowed to create a proposal
-      proposal_token_threshold: 100, // 100 $SDT are needed to create a proposal
+      proposal_token_threshold: 0, // 100 $SDT are needed to create a proposal
     });
 
     console.log(
