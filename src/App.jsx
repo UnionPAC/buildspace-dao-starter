@@ -246,20 +246,21 @@ const App = () => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                // disable the button to prevent double clicks
+                //before we do async things, we want to disable the button to prevent double clicks
                 setIsVoting(true);
 
-                // get the votes from the form for the values
+                // lets get the votes from the form for the values
                 const votes = proposals.map((proposal) => {
                   const voteResult = {
-                    proposalId: proposals.proposalId,
+                    proposalId: proposal.proposalId,
                     //abstain by default
                     vote: 2,
                   };
-                  proposals.votes.forEach((vote) => {
+                  proposal.votes.forEach((vote) => {
                     const elem = document.getElementById(
                       proposal.proposalId + "-" + vote.type
                     );
+
                     if (elem.checked) {
                       voteResult.vote = vote.type;
                       return;
@@ -351,8 +352,8 @@ const App = () => {
                 {isVoting
                   ? "Voting..."
                   : hasVoted
-                  ? "You Already Voted"
-                  : "Submit Votes"}
+                    ? "You Already Voted"
+                    : "Submit Votes"}
               </button>
               {!hasVoted && (
                 <small>
