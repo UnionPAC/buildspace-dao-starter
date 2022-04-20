@@ -5,7 +5,7 @@ import sdk from "./1-initialize-sdk.js";
   try {
     const tokenAddress = await sdk.deployer.deployToken({
       name: "startupDAO Token",
-      symbol: "SDT",
+      symbol: "STARTUP",
       primary_sale_recipient: AddressZero,
     });
     console.log('Successfully deployed token module, address:', tokenAddress);

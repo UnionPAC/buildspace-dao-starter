@@ -4,7 +4,7 @@ const editionDrop = sdk.getEditionDrop(
   "0x7230089Cc3D6141a4F7C5231795bdD9613e636E6"
 );
 
-const token = sdk.getToken("0xC8E82aB8b6b6c7d68b0C1317014640eF42CB8c3f");
+const token = sdk.getToken("0x988460dE836fBa285B23d60b515a557135078d48");
 
 (async () => {
   try {

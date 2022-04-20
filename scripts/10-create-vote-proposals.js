@@ -1,8 +1,8 @@
 import sdk from "./1-initialize-sdk.js";
 import { ethers } from "ethers";
 
-const vote = sdk.getVote("0x1cdb9922FfD6B551bCB8c618129e3eB1402F45C1");
-const token = sdk.getToken("0xC8E82aB8b6b6c7d68b0C1317014640eF42CB8c3f");
+const vote = sdk.getVote("0xc77b915818f0b91AA9360030947755bFfCA7c7cB");
+const token = sdk.getToken("0x988460dE836fBa285B23d60b515a557135078d48");
 
 (async () => {
   try {
