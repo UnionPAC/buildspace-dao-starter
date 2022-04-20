@@ -1,6 +1,6 @@
 import sdk from "./1-initialize-sdk.js";
 
-const vote = sdk.getVote("0xcdC8343b9DD5CAe4a337FA27775790975Ad4BB15");
+const vote = sdk.getVote("0x1cdb9922FfD6B551bCB8c618129e3eB1402F45C1");
 const token = sdk.getToken("0xC8E82aB8b6b6c7d68b0C1317014640eF42CB8c3f");
 
 (async () => {

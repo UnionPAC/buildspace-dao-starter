@@ -3,7 +3,7 @@ import sdk from "./1-initialize-sdk.js";
 (async () => {
   try {
     const voteContractAddress = await sdk.deployer.deployVote({
-      name: "startupDAO governance",
+      name: "startupDAO governance V3",
       voting_token_address: "0xC8E82aB8b6b6c7d68b0C1317014640eF42CB8c3f",
       // after a proposal is created, when can members start voting?
       voting_delay_in_blocks: 0, // members can start voting right away
@@ -20,7 +20,7 @@ import sdk from "./1-initialize-sdk.js";
     });
 
     console.log(
-      '✅ Successfully deployed vote contract, address:"',
+      '✅ Successfully deployed vote contract, address:',
       voteContractAddress
     );
   } catch (error) {

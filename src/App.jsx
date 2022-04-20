@@ -3,6 +3,7 @@ import {
   useMetamask,
   useEditionDrop,
   useToken,
+  useVote
 } from "@thirdweb-dev/react";
 import { useState, useEffect, useMemo } from "react";
 
@@ -16,6 +17,7 @@ const App = () => {
     "0x7230089Cc3D6141a4F7C5231795bdD9613e636E6"
   );
   const token = useToken("0xC8E82aB8b6b6c7d68b0C1317014640eF42CB8c3f");
+  const vote = useVote("")
 
   const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
